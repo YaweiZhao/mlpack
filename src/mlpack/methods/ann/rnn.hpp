@@ -3,6 +3,11 @@
  * @author Marcus Edel
  *
  * Definition of the RNN class, which implements recurrent neural networks.
+ *
+ * mlpack is free software; you may redistribute it and/or modify it under the
+ * terms of the 3-clause BSD license.  You should have received a copy of the
+ * 3-clause BSD license along with mlpack.  If not, see
+ * http://www.opensource.org/licenses/BSD-3-Clause for more information.
  */
 #ifndef MLPACK_METHODS_ANN_RNN_HPP
 #define MLPACK_METHODS_ANN_RNN_HPP
@@ -24,7 +29,7 @@ namespace ann /** Artificial Neural Network. */ {
  * Implementation of a standard recurrent neural network.
  *
  * @tparam LayerTypes Contains all layer modules used to construct the network.
- * @tparam OutputLayerType The outputlayer type used to evaluate the network.
+ * @tparam OutputLayerType The output layer type used to evaluate the network.
  * @tparam InitializationRuleType Rule used to initialize the weight matrix.
  * @tparam PerformanceFunction Performance strategy used to calculate the error.
  */
@@ -50,14 +55,14 @@ class RNN
    * be used.
    *
    * @param network Network modules used to construct the network.
-   * @param outputLayer Outputlayer used to evaluate the network.
+   * @param outputLayer Output layer used to evaluate the network.
    * @param predictors Input training variables.
    * @param responses Outputs resulting from input training variables.
    * @param optimizer Instantiated optimizer used to train the model.
    * @param initializeRule Optional instantiated InitializationRule object
-   *        for initializing the network paramter.
+   *        for initializing the network parameter.
    * @param performanceFunction Optional instantiated PerformanceFunction
-   *        object used to claculate the error.
+   *        object used to calculate the error.
    */
   template<typename LayerType,
            typename OutputType,
@@ -76,13 +81,13 @@ class RNN
    * initialize rule and performance function should be used.
    *
    * @param network Network modules used to construct the network.
-   * @param outputLayer Outputlayer used to evaluate the network.
+   * @param outputLayer Output layer used to evaluate the network.
    * @param predictors Input training variables.
    * @param responses Outputs resulting from input training variables.
    * @param initializeRule Optional instantiated InitializationRule object
-   *        for initializing the network paramter.
+   *        for initializing the network parameter.
    * @param performanceFunction Optional instantiated PerformanceFunction
-   *        object used to claculate the error.
+   *        object used to calculate the error.
    */
   template<typename LayerType, typename OutputType>
   RNN(LayerType &&network,
@@ -98,11 +103,11 @@ class RNN
    * training.
    *
    * @param network Network modules used to construct the network.
-   * @param outputLayer Outputlayer used to evaluate the network.
+   * @param outputLayer Output layer used to evaluate the network.
    * @param initializeRule Optional instantiated InitializationRule object
-   *        for initializing the network paramter.
+   *        for initializing the network parameter.
    * @param performanceFunction Optional instantiated PerformanceFunction
-   *        object used to claculate the error.
+   *        object used to calculate the error.
    */
   template<typename LayerType, typename OutputType>
   RNN(LayerType &&network,

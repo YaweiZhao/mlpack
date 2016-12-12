@@ -14,5 +14,12 @@ set(MLPACK_SRCS ${MLPACK_SRCS} ${DIR_SRCS} PARENT_SCOPE)
 
 #add_cli_executable(preprocess_stats)
 add_cli_executable(preprocess_split)
+<<<<<<< HEAD
 #add_cli_executable(preprocess_scan)
 #add_cli_executable(preprocess_imputer)
+=======
+add_cli_executable(preprocess_binarize)
+add_cli_executable(preprocess_describe)
+#add_cli_executable(preprocess_scan)
+add_cli_executable(preprocess_imputer)
+>>>>>>> mlpack/master

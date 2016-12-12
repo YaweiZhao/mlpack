@@ -3,6 +3,11 @@
  * @author Ryan Curtin
  *
  * Implementation of templatized load() function defined in load.hpp.
+ *
+ * mlpack is free software; you may redistribute it and/or modify it under the
+ * terms of the 3-clause BSD license.  You should have received a copy of the
+ * 3-clause BSD license along with mlpack.  If not, see
+ * http://www.opensource.org/licenses/BSD-3-Clause for more information.
  */
 #ifndef MLPACK_CORE_DATA_LOAD_IMPL_HPP
 #define MLPACK_CORE_DATA_LOAD_IMPL_HPP
@@ -59,6 +64,7 @@ void TransPoseTokens(std::vector<std::vector<std::string>> const &input,
   }
 }
 
+<<<<<<< HEAD
 template<typename eT>
 void MapToNumerical(const std::vector<std::string> &tokens,
                     size_t &row,
@@ -96,6 +102,8 @@ void MapToNumerical(const std::vector<std::string> &tokens,
   }
 }
 
+=======
+>>>>>>> mlpack/master
 }
 
 template<typename eT>
@@ -370,10 +378,10 @@ bool Load(const std::string& filename,
 }
 
 // Load with mappings.  Unfortunately we have to implement this ourselves.
-template<typename eT>
+template<typename eT, typename PolicyType>
 bool Load(const std::string& filename,
           arma::Mat<eT>& matrix,
-          DatasetInfo& info,
+          DatasetMapper<PolicyType>& info,
           const bool fatal,
           const bool transpose)
 {
@@ -446,18 +454,22 @@ bool Load(const std::string& filename,
     if (transpose)
     {
       matrix.set_size(cols, rows);
-      info = DatasetInfo(cols);
+      info = DatasetMapper<PolicyType>(info.Policy(), cols);
     }
     else
     {
       matrix.set_size(rows, cols);
-      info = DatasetInfo(rows);
+      info = DatasetMapper<PolicyType>(info.Policy(), rows);
     }
 
     stream.close();
     stream.open(filename, std::fstream::in);    
 
+<<<<<<< HEAD
     if(transpose)
+=======
+    if (transpose)
+>>>>>>> mlpack/master
     {
       std::vector<std::vector<std::string>> tokensArray;
       std::vector<std::string> tokens;
@@ -467,7 +479,11 @@ bool Load(const std::string& filename,
         std::getline(stream, buffer, '\n');
         Tokenizer lineTok(buffer, sep);
         tokens = details::ToTokens(lineTok);
+<<<<<<< HEAD
         if(tokens.size() == cols)
+=======
+        if (tokens.size() == cols)
+>>>>>>> mlpack/master
         {
           tokensArray.emplace_back(std::move(tokens));
         }
@@ -475,8 +491,12 @@ bool Load(const std::string& filename,
       for(size_t i = 0; i != cols; ++i)
       {
         details::TransPoseTokens(tokensArray, tokens, i);
+<<<<<<< HEAD
         details::MapToNumerical(tokens, i,
                                 info, matrix);
+=======
+        info.MapTokens(tokens, i, matrix);
+>>>>>>> mlpack/master
       }
     }
     else
@@ -487,8 +507,12 @@ bool Load(const std::string& filename,
         // Extract line by line.
         std::getline(stream, buffer, '\n');
         Tokenizer lineTok(buffer, sep);
+<<<<<<< HEAD
         details::MapToNumerical(details::ToTokens(lineTok), row,
                                 info, matrix);
+=======
+        info.MapTokens(details::ToTokens(lineTok), row, matrix);
+>>>>>>> mlpack/master
         ++row;
       }
     }

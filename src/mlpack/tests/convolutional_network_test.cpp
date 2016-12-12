@@ -3,6 +3,11 @@
  * @author Marcus Edel
  *
  * Tests the convolutional neural network.
+ *
+ * mlpack is free software; you may redistribute it and/or modify it under the
+ * terms of the 3-clause BSD license.  You should have received a copy of the
+ * 3-clause BSD license along with mlpack.  If not, see
+ * http://www.opensource.org/licenses/BSD-3-Clause for more information.
  */
 #include <mlpack/core.hpp>
 
@@ -23,7 +28,7 @@
 #include <mlpack/methods/ann/cnn.hpp>
 
 #include <boost/test/unit_test.hpp>
-#include "old_boost_test_definitions.hpp"
+#include "test_tools.hpp"
 
 using namespace mlpack;
 using namespace mlpack::ann;
@@ -96,15 +101,13 @@ void BuildVanillaNetwork()
   BaseLayer2D<> baseLayer1;
   PoolingLayer<> poolingLayer1(2);
 
-  LinearMappingLayer<> linearLayer0(192, 10);
+  LinearMappingLayer<> linearLayer0(4608, 10);
   BiasLayer<> biasLayer2(10);
   SoftmaxLayer<> softmaxLayer0;
 
   OneHotLayer outputLayer;
 
-  auto modules = std::tie(convLayer0, biasLayer0, baseLayer0, poolingLayer0,
-                          convLayer1, biasLayer1, baseLayer1, poolingLayer1,
-                          linearLayer0, biasLayer2, softmaxLayer0);
+  auto modules = std::tie(convLayer0, baseLayer0, linearLayer0, softmaxLayer0);
 
   CNN<decltype(modules), decltype(outputLayer),
       RandomInitialization, MeanSquaredErrorFunction> net(modules, outputLayer);

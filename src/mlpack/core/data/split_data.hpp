@@ -4,6 +4,11 @@
  *
  * Defines Split(), a utility function to split a dataset into a
  * training set and a test set.
+ *
+ * mlpack is free software; you may redistribute it and/or modify it under the
+ * terms of the 3-clause BSD license.  You should have received a copy of the
+ * 3-clause BSD license along with mlpack.  If not, see
+ * http://www.opensource.org/licenses/BSD-3-Clause for more information.
  */
 #ifndef MLPACK_CORE_DATA_SPLIT_DATA_HPP
 #define MLPACK_CORE_DATA_SPLIT_DATA_HPP
@@ -191,6 +196,35 @@ Split(const arma::Mat<T>& input,
 =======
 >>>>>>> origin/master
 >>>>>>> Stashed changes
+}
+
+/**
+ * Given an input dataset, split into a training set and test set.
+ * Example usage below.  This overload returns the split dataset as a std::tuple
+ * with two elements: an arma::Mat<T> containing the training data and an
+ * arma::Mat<T> containing the test data.
+ *
+ * @code
+ * arma::mat input = loadData();
+ * auto splitResult = Split(input, 0.2);
+ * @endcode
+ *
+ * @param input Input dataset to split.
+ * @param testRatio Percentage of dataset to use for test set (between 0 and 1).
+ * @return std::tuple containing trainData (arma::Mat<T>)
+ *      and testData (arma::Mat<T>).
+ */
+template<typename T>
+std::tuple<arma::Mat<T>, arma::Mat<T>>
+Split(const arma::Mat<T>& input,
+      const double testRatio)
+{
+  arma::Mat<T> trainData;
+  arma::Mat<T> testData;
+  Split(input, trainData, testData, testRatio);
+
+  return std::make_tuple(std::move(trainData),
+                         std::move(testData));
 }
 
 } // namespace data
